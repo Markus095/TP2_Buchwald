@@ -2,7 +2,30 @@
 #include <stdlib.h>
 #include <stddef.h>
 #include <stdio.h>
+#include <string.h>
 #include "tp2.h"
+
+
+void pedir_comando(red_social_t* red, char* linea){
+  if(!linea){
+    fprintf(stdout,"no se pudo leer la entrada estandar\n");
+    return;
+  }
+  if(strcmp(linea, "login\n") == 0){
+    logear(red);
+  }else if(strcmp(linea, "logout\n")==0){
+    desloggear(red);
+  }else if(strcmp(linea, "publicar\n")==0){
+    publicar(red);
+  }else if(strcmp(linea, "ver_siguiente_feed\n")==0){
+    ver_siguiente_feed(red);
+  }else if(strcmp(linea, "likear_post\n")==0){
+    likear_post(red);
+  }else if(strcmp(linea, "mostrar_likes\n")==0){
+    mostrar_likes(red);
+  }
+}
+
 
 
 int main(int argc, char* argv[]){
