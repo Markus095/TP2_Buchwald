@@ -54,12 +54,6 @@ void mostrar_likes(red_social_t* red);
 */
 void destruir_red(red_social_t* red);
 
-/*
-**PRE:
-**POS:
-*/
-void pedir_comando(red_social_t* red, char* linea);
-
 
 
 #endif
