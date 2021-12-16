@@ -145,9 +145,10 @@ void destruir_red(red_social_t* red){
 }
 
 
+//////////////////////////// FUNCIONES PROGRAMA INICIADO  ////////////////////////////
 
+/////////////////////////// AUXILIARES ////////////////////////////
 
-//////////////////////////// FUNCIONES PROGRAMA INICIADO  /////////////////////////////////////////////////////////
 void actualizar_feed(red_social_t* red, usuario_t* usuario_act, post_t* post){
   post_feed_t* post_feed = malloc(sizeof(post_feed_t));
   post_feed->afinidad = (size_t)abs((int)usuario_act->id - (int)red->usuario_loggeado->id);
@@ -169,6 +170,34 @@ void actualizar_feed_usuarios(red_social_t* red, post_t* post){
   hash_iter_destruir(iter);
 }
 
+
+bool redimensionar_posts(red_social_t* red){
+  post_t** datos_nuevos = realloc(red->posts, red->capacidad_post * 2 * sizeof(post_t*));
+  if(!datos_nuevos){
+    return false;
+  }
+  red->capacidad_post *= 2;
+  red->posts = datos_nuevos;
+  return true;
+}
+
+void imprimir_post(post_t* post){
+  fprintf(stdout, "Post ID %ld\n", post->id);
+  fprintf(stdout, "%s dijo: %s\n", post->autor, post->texto);
+  fprintf(stdout, "Likes: %ld\n", post->likes);
+}
+
+void imprimir_abb(abb_t* abb){
+  abb_iter_t* iter = abb_iter_in_crear(abb);
+  while(!abb_iter_in_al_final(iter)){
+    fprintf(stdout,"	%s\n",(char*)abb_iter_in_ver_actual(iter));
+    abb_iter_in_avanzar(iter);
+  }
+  abb_iter_in_destruir(iter);
+}
+
+
+/////////////////////////// PRINCIPALES ////////////////////////////
 void logear(red_social_t* red){
   if(red->usuario_loggeado != NULL){
     fprintf(stdout,"%s\n","Error: Ya habia un usuario loggeado");
@@ -190,6 +219,7 @@ void logear(red_social_t* red){
   free(linea);
 }
 
+
 void desloggear(red_social_t* red){
   if(red->usuario_loggeado == NULL){
     fprintf(stdout,"%s\n","Error: no habia usuario loggeado");
@@ -199,15 +229,6 @@ void desloggear(red_social_t* red){
   }
 }
 
-bool redimensionar_posts(red_social_t* red){
-  post_t** datos_nuevos = realloc(red->posts, red->capacidad_post * 2 * sizeof(post_t*));
-  if(!datos_nuevos){
-    return false;
-  }
-  red->capacidad_post *= 2;
-  red->posts = datos_nuevos;
-  return true;
-}
 
 void publicar(red_social_t* red){
   if(red->usuario_loggeado == NULL){
@@ -228,11 +249,6 @@ void publicar(red_social_t* red){
   free(linea);
 }
 
-void imprimir_post(post_t* post){
-  fprintf(stdout, "Post ID %ld\n", post->id);
-  fprintf(stdout, "%s dijo: %s\n", post->autor, post->texto);
-  fprintf(stdout, "Likes: %ld\n", post->likes);
-}
 
 void ver_siguiente_feed(red_social_t* red){
   if(red->usuario_loggeado == NULL){
@@ -271,14 +287,6 @@ void likear_post(red_social_t* red){
   free(linea);
 }
 
-void imprimir_abb(abb_t* abb){
-  abb_iter_t* iter = abb_iter_in_crear(abb);
-  while(!abb_iter_in_al_final(iter)){
-    fprintf(stdout,"	%s\n",(char*)abb_iter_in_ver_actual(iter));
-    abb_iter_in_avanzar(iter);
-  }
-  abb_iter_in_destruir(iter);
-}
 
 void mostrar_likes(red_social_t* red){
   size_t capacidad = 0;
@@ -300,6 +308,7 @@ void mostrar_likes(red_social_t* red){
   imprimir_abb(post->usuarios_likes);
   free(linea);
 }
+
 
 void pedir_comando(red_social_t* red, char* linea){
   if(!linea){
