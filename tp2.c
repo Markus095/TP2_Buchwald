@@ -320,37 +320,3 @@ void pedir_comando(red_social_t* red, char* linea){
     mostrar_likes(red);
   }
 }
-
-
-
-
-////////////////////////// MAIN /////////////////////////
-int main(int argc, char* argv[]){
-
-  if(argc < 2){
-    printf("%d\n",argc);
-    fprintf(stderr,"%s\n","parametros invalidos");
-  }
-
-  char *nombre_archivo = argv[1];
-
-  FILE* archivo_usuarios = fopen(nombre_archivo,"r");
-  if(!archivo_usuarios){
-    fprintf(stdout,"%s\n","no se pudo abrir el archivo");
-    return -1;
-  }
-  red_social_t* red = iniciar_red(archivo_usuarios);
-
-  fclose(archivo_usuarios);
-  
-  size_t capacidad = 0;
-  char *linea = NULL;
-  ssize_t leidos = getline(&linea,&capacidad,stdin);
-  while(leidos != EOF){
-    pedir_comando(red,linea);
-    leidos = getline(&linea,&capacidad,stdin);
-  }
-  free(linea);
-  destruir_red(red);
-  return 0;
-}

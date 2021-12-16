@@ -4,6 +4,8 @@
 #include <stdbool.h>
 #include <stddef.h>
 
+typedef struct red_social red_social_t;
+
 /*
 **PRE:
 **POS:
@@ -51,5 +53,13 @@ void mostrar_likes(red_social_t* red);
 **POS:
 */
 void destruir_red(red_social_t* red);
+
+/*
+**PRE:
+**POS:
+*/
+void pedir_comando(red_social_t* red, char* linea);
+
+
 
 #endif
