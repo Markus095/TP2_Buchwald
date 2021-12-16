@@ -308,24 +308,3 @@ void mostrar_likes(red_social_t* red){
   imprimir_abb(post->usuarios_likes);
   free(linea);
 }
-
-
-void pedir_comando(red_social_t* red, char* linea){
-  if(!linea){
-    fprintf(stdout,"no se pudo leer la entrada estandar\n");
-    return;
-  }
-  if(strcmp(linea, "login\n") == 0){
-    logear(red);
-  }else if(strcmp(linea, "logout\n")==0){
-    desloggear(red);
-  }else if(strcmp(linea, "publicar\n")==0){
-    publicar(red);
-  }else if(strcmp(linea, "ver_siguiente_feed\n")==0){
-    ver_siguiente_feed(red);
-  }else if(strcmp(linea, "likear_post\n")==0){
-    likear_post(red);
-  }else if(strcmp(linea, "mostrar_likes\n")==0){
-    mostrar_likes(red);
-  }
-}
