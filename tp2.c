@@ -281,8 +281,8 @@ void likear_post(red_social_t* red){
   post_t* post = red->posts[id];
   if(!abb_pertenece(post->usuarios_likes, red->usuario_loggeado->nombre)){
     post->likes++;
+    abb_guardar(post->usuarios_likes,red->usuario_loggeado->nombre, NULL);
   }
-  abb_guardar(post->usuarios_likes,red->usuario_loggeado->nombre, NULL);
   fprintf(stdout,"%s\n","Post likeado");
   free(linea);
 }
