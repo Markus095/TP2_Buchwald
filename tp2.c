@@ -265,15 +265,11 @@ void ver_siguiente_feed(red_social_t* red){
 }
 
 void likear_post(red_social_t* red){
-  if(red->usuario_loggeado == NULL){
-    fprintf(stdout,"%s\n","Error: Usuario no loggeado o Post inexistente");
-    return;
-  }
   size_t capacidad = 0;
   char *linea = NULL;
   getline(&linea,&capacidad,stdin);
   int id=atoi(linea);
-  if(id >= red->cantidad_posts || id < 0){
+  if(red->usuario_loggeado == NULL || id >= red->cantidad_posts || id < 0){
     free(linea);
     fprintf(stdout,"%s\n","Error: Usuario no loggeado o Post inexistente");
     return;
