@@ -17,43 +17,57 @@ red_social_t* iniciar_red(FILE* archivo_usuarios);
 
 /*
 **PRE: la red social fue creada
-**POS: Loggea al usuario si no habia nadie loggeado antes, en cuyo caso imprime un Error. Tambien falla si el ususario es inexistente.
+**POS: pide el nombre del usuario que se va a loggear, si no había nadie loggeado
+** y el nombre es valido, lo loggea. De lo contrario, imprime un error por entrada
+** estandar.
 */
 void logear(red_social_t* red);
 
 /*
 **PRE: la red social fue creada.
-**POS: deslogguea al usuario. Si no habia usuario loggeado imprime Error.
+**POS: deslogguea al usuario loggeado actualmente. Si no hay tal usuario imprime
+** un error por la entrada estandar.
 */
 void desloggear(red_social_t* red);
 
 /*
 **PRE: la red social fue creada.
-**POS: crea un post con la entrada del usuario. Si no hay nadie loggeado imprime error.
+**POS: si hay un usuario loggeado, pide el texto del post a publicar, lo crea y
+** lo guarda en la red y los feeds de todos los usuarios menos el loggeado.
+** En el caso contrario imprime un error por la entrada estandar.
 */
 void publicar(red_social_t* red);
 
 /*
 **PRE: la red social fue creada.
-**POS: mostrara el siguiente post segun la afinidad del usuario. Si no hay usuario loggeado o mas posts para ver imprime error.
+**POS: mostrara el texto, autor y cantidad de likes del siguiente post en el
+** feed del usuario y lo quita del feed. El siguiente post se determina en base
+** a que tan cerca estaban el autor del post y el usuario loggeado en el archivo original.
+**Si no hay usuario loggeado o mas posts para ver imprime un error por entrada estandar.
 */
 void ver_siguiente_feed(red_social_t* red);
 
 /*
 **PRE: la red social fue creada.
-**POS: aumentara los likes del post correspondiente, si el usuario no lo habia likeado antes. Si no hay usuario loggeado o no existe el post imprime error.
+**POS: pide el id del post, si el post con ese id existe y hay un usuario loggeado,
+** aumenta los likes del post, guarda al usuario actualmente loggeado entre
+** los que le dieron like e imprime "Post likeado". Si el usuario ya habia dado
+** like al post previamente, solamente imprime el mensaje.
+**Si no hay usuario loggeado o no existe el post imprime error.
 */
 void likear_post(red_social_t* red);
 
 /*
 **PRE: la red social fue creada.
-**POS: muestra la cantidad de likes de un post. Si este no existe o no tiene likes imprime error.
+**POS: pide el id del post. Si este no existe o no tiene likes imprime error.
+** En caso contrario, imprime la cantidad de likes y el nombre de todos usuarios
+** que previamente lo likearon.
 */
 void mostrar_likes(red_social_t* red);
 
 /*
 **PRE: la red social fue creada.
-**POS: se destruye la red junto con los posts.
+**POS: se destruye la red junto con los posts, los usuarios y sus feeds.
 */
 void destruir_red(red_social_t* red);
 
